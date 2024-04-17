@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Training from "./Trainings";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import AddTraining from "./AddTraining";
-
+import GetAppIcon from '@mui/icons-material/GetApp';
+import { getCustomers } from "../custapi";
+  
 
 export default function CustomerList() {
     const [customers, setCustomers] = useState([]);
     const [quickFilterText, setQuickFilterText] = useState('');
-
-    const customersUrl = "https://customerrestservice-personaltraining.rahtiapp.fi/api/customers";
-    const cmTrainingUrl= "https://customerrestservice-personaltraining.rahtiapp.fi/api/trainings";
     const [colDefs, setColDefs] = useState([
         {
             cellRenderer: params =>
@@ -58,35 +55,9 @@ export default function CustomerList() {
 
 
     useEffect(() => { fetchCustomers() }, []);
-//useEffect(() => { resetD() }, []);
-
-    const resetD = () => {
-        fetch('https://customerrestservice-personaltraining.rahtiapp.fi/reset', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        })
-            .then(response => {
-                if (!response.ok)
-                    throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(data => {
-                console.log('Response:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
 
     const fetchCustomers = () => {
-        fetch(customersUrl)
-            .then(response => {
-                if (!response.ok)
-                    throw new Error("error in fetch: " + response.statusText);
-                return response.json();
-            })
-
+        getCustomers()
             .then(customersData => setCustomers(customersData._embedded.customers))
             .catch(err => console.error(err))
     }
@@ -107,7 +78,7 @@ export default function CustomerList() {
 
 
     const addCustomer = (newCustomer) => {
-        fetch(customersUrl, {
+        fetch(import.meta.env.VITE_API_URL_CUSTOMERS, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newCustomer)
@@ -138,7 +109,7 @@ export default function CustomerList() {
     }
 
     const addTraining = (addTraining) => {
-        fetch(cmTrainingUrl, {
+        fetch(import.meta.env.VITE_API_URL_TRAININGS, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(addTraining)
@@ -156,6 +127,18 @@ export default function CustomerList() {
             .catch(err => console.error(err))
 
     }
+    const gridRef = useRef();
+
+    const columnKeys = ['firstname', 'lastname', 'email', 'phone','streetaddress','city','postcode'];
+    const exportToCsv = () => {
+        const params = {
+            columnKeys:columnKeys,
+            fileName: 'customers.csv', // Specify the file name for the exported CSV file
+        };
+        gridRef.current.api.exportDataAsCsv(params);
+    };
+
+
     return (
         <>
             <div className="example-header">
@@ -170,19 +153,24 @@ export default function CustomerList() {
                         onChange={(e) => setQuickFilterText(e.target.value)}
                     />
                     <div style={{ flex: '1' }} />
+                    <IconButton aria-label="Download CSV export file" onClick={exportToCsv}>
+                          <GetAppIcon />
+                    </IconButton>
                     <AddCustomer addCustomer={addCustomer}/>
                 </div>
             </div>
             <div className="ag-theme-material" style={{ height: 600 }}>
                     <AgGridReact
+                    ref={gridRef}
                     rowData={customers}
                     columnDefs={colDefs}
                     pagination={true}
                     paginationAutoPageSize={true}
                     quickFilterText={quickFilterText}
+                    suppressExcelExport={true}
                 />
             </div>
-        
+           
         </>
     )
 

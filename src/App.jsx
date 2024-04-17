@@ -43,6 +43,7 @@ function App() {
             >
             <MenuItem component={Link} to="/" onClick={handleClose}>Custumer list</MenuItem>
             <MenuItem component={Link} to="/trainings" onClick={handleClose}>Trainings</MenuItem>
+            <MenuItem component={Link} to="/calendar" onClick={handleClose}>Calendar</MenuItem>
          
             </Menu>
 

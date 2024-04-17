@@ -4,6 +4,7 @@ import App from './App.jsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import CustomerList from './componets/CustomerList.jsx';
 import Trainings from './componets/Trainings.jsx';
+import Calendar from './componets/Calendar.jsx';
 
 
 const router = createBrowserRouter([ 
@@ -19,7 +20,10 @@ const router = createBrowserRouter([
         path: "/trainings",                // path can be defined relative to the parent path
         element: <Trainings />,
       },
-           
+      {
+        path: "/calendar",                // path can be defined relative to the parent path
+        element: <Calendar />,
+      },
     ]
   }
 ]);

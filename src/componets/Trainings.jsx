@@ -5,14 +5,12 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import dayjs from "dayjs";
-
+import { getTrainingCustomer } from "../trainingcustomerapi";
 
 export default function Trainings() {
     const [trainings, setTrainings] = useState([]);
 
     const [quickFilterText, setQuickFilterText] = useState('');
-
-    const trainingsUrl = "https://customerrestservice-personaltraining.rahtiapp.fi/gettrainings";
 
     const [colDefs, setColDefs] = useState([
         {
@@ -22,7 +20,7 @@ export default function Trainings() {
                 </IconButton>, width: 50
         },
         { headerName: "Activity", field: "activity" },
-        { headerName: "Date", field: "date",  valueFormatter: params => dayjs(params.value).format("DD.MM.YYYY HH:mm")},
+        { headerName: "Date", field: "date", valueFormatter: params => dayjs(params.value).format("DD.MM.YYYY HH:mm") },
         { headerName: "Duration (min)", field: "duration", getQuickFilterText: params => { return ''; } },
         {
             headerName: "Customer", field: "customer",
@@ -34,23 +32,16 @@ export default function Trainings() {
     useEffect(() => { fetchTrainings() }, []);
 
     const fetchTrainings = () => {
-        fetch(trainingsUrl)
-            .then(response => {
-                if (!response.ok)
-                    throw new Error("error in fetch: " + response.statusText);
-                return response.json();
-            })
-
-            .then(trainingsData => 
+        getTrainingCustomer()
+            .then(trainingsData =>
                 setTrainings(trainingsData))
-
-            .catch (error => console.error(error))    
-            }    
+            .catch(error => console.error(error))
+    }
 
     const deleteTraining = (url) => {
         console.log(url)
         if (window.confirm("Please confirm deletion")) {
-            fetch("https://customerrestservice-personaltraining.rahtiapp.fi/api/trainings/"+ url, { method: 'DELETE' })
+            fetch(import.meta.env.VITE_API_URL_TRAININGS + "/" + url, { method: 'DELETE' })
                 .then(response => {
                     if (!response.ok)
                         throw new Error("error in fetch: " + response.statusText);
