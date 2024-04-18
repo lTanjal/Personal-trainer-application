@@ -9,6 +9,7 @@ import EditCustomer from "./EditCustomer";
 import AddTraining from "./AddTraining";
 import GetAppIcon from '@mui/icons-material/GetApp';
 import { getCustomers } from "../custapi";
+import { Tooltip } from "@mui/material";
   
 
 export default function CustomerList() {
@@ -141,24 +142,27 @@ export default function CustomerList() {
 
     return (
         <>
-            <div className="example-header">
-                <h3>Customers</h3>
-                
+            <div style={{ height: 60 }}></div>
+            <div className="example-header"><h3>Customers</h3></div>   
+
                 {/* First or last name for quick filtering */}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', height: 50 }}>
                     <input
                         type="text"
                         placeholder="Search..."
                         value={quickFilterText}
                         onChange={(e) => setQuickFilterText(e.target.value)}
                     />
-                    <div style={{ flex: '1' }} />
-                    <IconButton aria-label="Download CSV export file" onClick={exportToCsv}>
+                <div style={{ flex: '1' }} />
+                    <Tooltip title="Download customers" arrow>
+                    <IconButton aria-label="Download CSV export file" onClick={exportToCsv} 
+                    style={{ marginRight: '10px' }}> 
                           <GetAppIcon />
                     </IconButton>
+                    </Tooltip>   
                     <AddCustomer addCustomer={addCustomer}/>
                 </div>
-            </div>
+            
             <div className="ag-theme-material" style={{ height: 600 }}>
                     <AgGridReact
                     ref={gridRef}

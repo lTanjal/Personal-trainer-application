@@ -4,6 +4,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, Outlet } from 'react-router-dom';
+import GroupsIcon from '@mui/icons-material/Groups';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 
 function App() {
@@ -20,7 +24,7 @@ function App() {
   return (
     <>
       <Container maxWidth="xl">
-        <AppBar position='static'>
+        <AppBar position='fixed'>
           <Toolbar>
             <IconButton
               size="large"
@@ -41,10 +45,31 @@ function App() {
                 'aria-labelledby': 'basic-button',
               }}
             >
-            <MenuItem component={Link} to="/" onClick={handleClose}>Custumer list</MenuItem>
-            <MenuItem component={Link} to="/trainings" onClick={handleClose}>Trainings</MenuItem>
-            <MenuItem component={Link} to="/calendar" onClick={handleClose}>Calendar</MenuItem>
-         
+                  <MenuItem component={Link} to="/" onClick={handleClose}>
+                    <GroupsIcon />
+                    <span style={{ marginLeft: '8px' }}>Custumer list
+                    </span>
+                  </MenuItem>
+
+                  <MenuItem component={Link} to="/trainings" onClick={handleClose}>
+                    <FitnessCenterIcon />
+                    <span style={{ marginLeft: '8px' }}>Trainings
+                    </span>
+                  </MenuItem>
+                
+                  <MenuItem component={Link} to="/calendar" onClick={handleClose}>
+                    <CalendarMonthIcon/>
+                    <span style={{ marginLeft: '8px' }}>Calendar
+                    </span>
+                  </MenuItem>
+
+
+                  <MenuItem component={Link} to="/chart" onClick={handleClose}>
+                    <BarChartIcon/>
+                    <span style={{ marginLeft: '8px' }}>Activity Chart
+                    </span>
+                  </MenuItem>
+
             </Menu>
 
             <Typography variant='h6'
@@ -53,10 +78,10 @@ function App() {
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             > Personal trainer
             </Typography>
-
           </Toolbar>
         </AppBar>
       </Container>
+
       <Outlet />
     </>
   )

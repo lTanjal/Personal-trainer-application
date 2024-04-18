@@ -56,6 +56,7 @@ export default function Trainings() {
 
     return (
         <>
+            <div style={{ height: 60 }}></div>
             <div className="example-header">
                 <h3>Trainings</h3>
                 {/* Data for quick filtering */}

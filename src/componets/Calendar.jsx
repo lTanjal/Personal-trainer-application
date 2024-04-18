@@ -36,7 +36,7 @@ export default function Trainings() {
 
 return (
         <>   
-         <div style={{ height: 30 }}></div>
+         <div style={{ height: 70 }}></div>
             <div className="" style={{ minHeight: 580 }}>
            
                 <Calendar
