@@ -45,26 +45,26 @@ function App() {
                 'aria-labelledby': 'basic-button',
               }}
             >
-                  <MenuItem component={Link} to="/" onClick={handleClose}>
+                  <MenuItem component={Link} to="/PersonalTrainerApplication" onClick={handleClose}>
                     <GroupsIcon />
                     <span style={{ marginLeft: '8px' }}>Custumer list
                     </span>
                   </MenuItem>
 
-                  <MenuItem component={Link} to="/trainings" onClick={handleClose}>
+                  <MenuItem component={Link} to="/PersonalTrainerApplication/trainings" onClick={handleClose}>
                     <FitnessCenterIcon />
                     <span style={{ marginLeft: '8px' }}>Trainings
                     </span>
                   </MenuItem>
                 
-                  <MenuItem component={Link} to="/calendar" onClick={handleClose}>
+                  <MenuItem component={Link} to="/PersonalTrainerApplication/calendar" onClick={handleClose}>
                     <CalendarMonthIcon/>
                     <span style={{ marginLeft: '8px' }}>Calendar
                     </span>
                   </MenuItem>
 
 
-                  <MenuItem component={Link} to="/chart" onClick={handleClose}>
+                  <MenuItem component={Link} to="/PersonalTrainerApplication/chart" onClick={handleClose}>
                     <BarChartIcon/>
                     <span style={{ marginLeft: '8px' }}>Activity Chart
                     </span>

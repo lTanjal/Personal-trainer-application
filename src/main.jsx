@@ -9,7 +9,7 @@ import Chart from './componets/Chart.jsx';
 
 const router = createBrowserRouter([ 
   {
-    path: "/",
+    path: "/PersonalTrainerApplication",
     element: <App />,
     children: [                       
       {
@@ -17,15 +17,15 @@ const router = createBrowserRouter([
         index: true                   // index route does not need any path
       },
       {
-        path: "/trainings",                // path can be defined relative to the parent path
+        path: "trainings",                // path can be defined relative to the parent path
         element: <Trainings />,
       },
       {
-        path: "/calendar",                // path can be defined relative to the parent path
+        path: "calendar",                // path can be defined relative to the parent path
         element: <Calendar />,
       },
       {
-        path: "/chart",                // path can be defined relative to the parent path
+        path: "chart",                // path can be defined relative to the parent path
         element: < Chart />,
       },
     ]

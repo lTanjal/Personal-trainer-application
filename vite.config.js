@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
     base: '/PersonalTrainerApplication/',
+    plugins: [react()],
     test: {
-    globals: true,
-    environment: 'jsdom',
-  },
+      globals: true,
+      environment: 'jsdom',
+    },
 })
